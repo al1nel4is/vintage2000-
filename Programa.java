@@ -1,60 +1,99 @@
+
+import java.util.Scanner;
+
 import model.Conta;
 import model.Meta;
 import model.Receita;
+import model.Despesa;
 
-        public class Programa {
-            public static void main(String[] args) {
+public class Programa {
+    public static void main(String args[]) {
 
-    
-         Conta conta_1 = new Conta();
+     Scanner sc = new Scanner(System.in);
         
-        conta_1.numero = 76521;
-        conta_1.cliente = "Darcy";
-        conta_1.saldo = 100.0;
-        conta_1.limite = 100.0;
+        Conta conta = new Conta("1234567", "Gertrude");
         
-
-        Receita valor = new Receita();
-        System.out.println (Receita.getNome();
+        Meta meta = new Meta("moto", 9000, 4000);
         
-        System.out.println(valor.getNome();
-
-
-       
-        Despesa despesa_1 = new Despesa();
-        despesa_1.nome = "aluguel";
-        despesa_1.valor = 500.00;
-        System.out.println (Despesa.getNome();
+        Receita receita = new Receita("Salario", 2500);
         
- 
+        Despesa despesa = new Despesa("Aluguel", 1200, "pendente");
+        
+        int deposito = 0;
+        
+        //RELATÓRIO
+        System.out.println("--SISTEMA DE CONTROLE FINANCEIRO--");
+        System.out.print("Cliente:" + conta.getCliente());
+        System.out.println("Saldo inicial" + conta.getSaldo());
+        System.out.println("----------------------------------");
+        System.out.println("Deseja depositar este valor?" + receita.getOrigem()
+            + " | Saldo inicial: R$ " + receita.getValor()
+            + "? (1-Sim / 2-Não): ");
+             
+        deposito = sc.nextInt();
+        if (deposito == 1) {
+            conta.setSaldo(conta.getSaldo() + receita.getValor());
+            System.out.println("Salario adicionado com sucesso.");
+            System.out.println("Saldo Atual: R$ " + conta.getSaldo());
+
+        } else {
+          System.out.println("Depósito cancelado.");
+        }
+
+        //Despesa
+        System.out.print("Deseja pagar a despesa [" + despesa.getDescricao()
+                + "] de R$ " + despesa.getValor()
+                + "? (1-Sim / 2-Não): ");
+        int opcao = sc.nextInt();
+
+        if (opcao == 1) {
+
+            if (conta.getSaldo() + conta.getLimite() >= despesa.getValor()) {
+
+                conta.setSaldo(conta.getSaldo() - despesa.getValor());
+                despesa.setStatus("Paga");
+
+                System.out.println("Despesa paga com sucesso!");
+                System.out.println("Saldo Atual: R$ " + conta.getSaldo());
+
+            } else {
+                System.out.println("Saldo insuficiente.");
+            }
+
+        } else {
+            System.out.println("Pagamento cancelado.");
+        }
 
 
-
-
-
-
-        // Relatório Final  Camilli
-        System.out.println("\n=================================");
-        System.out.println("      RELATÓRIO FINANCEIRO");
-        System.out.println("=================================");
-
-        System.out.println("Cliente: Alex Silva");
-        System.out.println("Saldo Atual: R$ " + conta.getSaldo());
-
-        System.out.println("\nReceita:");
-        System.out.println("- Salário Mensal: R$ 2000.0");
-
-        System.out.println("\nDespesa:");
-        System.out.println("- Aluguel: R$ 1200.0");
-        System.out.println("- Status: " + aluguel.getStatus());
-
-        System.out.println("\nMeta:");
-        System.out.println(
-            "- Comprar Computador: R$ " +
-            valorPoupado +
-            " poupados de R$ 3000.0"
-        );
-
+        
+        System.out.println("Deseja poupar R$300 para a meta ("+ meta.getObjetivo() + "?) [1 - sim  / 2 - não]" );
+        int pouparResposta = sc.nextInt();
+        if (pouparResposta == 1){
+             
+            if (conta.getSaldo() >= 300) {
+               
+               conta.setSaldo(conta.getSaldo() - 300);
+               meta.setValorPoupado(meta.getvalorPoupado() + 300);
+               System.out.println("Dinheiro guardado na meta com sucesso!");
+               
+            }else {
+                
+                System.out.println("ERRO! saldo insuficiente. ");
+            }
+        }    
+        
+        
+        System.out.println("");
+        System.out.println("");
+        System.out.println("====================================");
+        System.out.println("         RELATORIO FINANCEIRO       ");
+        System.out.println("====================================");
+        System.out.println("Conta:" + conta.getNumero() + "|Cliente" + conta.getCliente());
+        System.out.println("Saldo final" + RS  + "|Limite" + conta.getLimite());
+        System.out.println("Situação do aluguel:" + despesa.setStatus);
+        System.out.println("Meta [Comprar moto]" + meta.setValourPoupado );
+        System.out.println("====================================");
+        
         
     }
 }
